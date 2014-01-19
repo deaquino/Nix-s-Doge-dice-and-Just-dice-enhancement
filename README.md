@@ -21,7 +21,7 @@ Installation from source
 3. Type `chrome://extensions/` into the address bar.
 4. Make sure `Developer Mode` is checked in the upper right.
 5. Click `Load unpacked extensions...` and browse to the directory where you save the repository.
-6. Now browse to https://Doge-dice.com or https://Doge-dice.com and you should see a new addition for Martingale betting.
+6. Now browse to https://Doge-dice.com or https://Just-dice.com and you should see a new addition for Martingale betting.
 
 How to Bet
 ----------
