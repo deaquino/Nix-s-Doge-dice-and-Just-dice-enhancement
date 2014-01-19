@@ -3,7 +3,7 @@
 
   "name": "Doge-dice and Just-dice enhancement suite",
   "description": "Provides various enhancements for doge-dice.com and just-dice.com including a Martingale betting strategy.",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "permissions": [
     "tabs","https://doge-dice.com/*", "https://just-dice.com/*", "storage"
