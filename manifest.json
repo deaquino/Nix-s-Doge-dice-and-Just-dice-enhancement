@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Nix's-Doge-dice.com and Just-dice.com enhancement suite",
+  "name": "Doge-dice and Just-dice enhancement suite",
   "description": "Provides various enhancements for doge-dice.com and just-dice.com including a Martingale betting strategy.",
   "version": "1.0.0",
 
