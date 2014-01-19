@@ -23,6 +23,9 @@ Installation from source
 5. Click `Load unpacked extensions...` and browse to the directory where you save the repository.
 6. Now browse to https://Doge-dice.com or https://Just-dice.com and you should see a new addition for Martingale betting.
 
+or install free from the chrome store
+https://chrome.google.com/webstore/detail/doge-dice-and-just-dice-e/jlfjchiocgnhgfckjmbjinbbagcnjhck
+
 How to Bet
 ----------
 Remember this is alpha alpha software and there should not be any more coins in your account than you are willing to lose.
