@@ -32,6 +32,7 @@ var balance = 0;
 var start_values_check = 0;
 var betid = 0;
 var last_betid = 0;
+var last_betid2 = 0;
 var version_c = "1.0.0";
 var heartbeat_bpm = 100; //this is the bots ticker if for some reason the site temp bans  for spam betting lower this to 125
 var bet_data = [];
@@ -256,6 +257,11 @@ function stats_update() {
 	var ccbust1 = parseFloat($("#pct_chance").val());
 	var ccbust2 = parseFloat($("#limiter").val());
 	var cBust3 = 0;
+	var results = $("div#me .results")[0];
+	var result = $(results).children()[0];
+	var betid = $($(result).children(".betid")).text();
+
+
 	cBust1 = 1 - ccbust1 / 100;
 	cBust2 = Math.pow(cBust1, ccbust2) * 100;
 
@@ -272,8 +278,12 @@ function stats_update() {
 
 	//profitInput ---profit  -- start_bal
 	balance = parseFloat($("#pct_balance").val());
-	current_profit = balance - start_balance;
-	$("#profitInput").val(current_profit.toFixed(8));
+
+	if (betid != last_betid2) {
+		last_betid2 = betid;
+		current_profit = balance - start_balance;
+		$("#profitInput").val(current_profit.toFixed(8));
+	}
 
 	var win_ratio = ((won / run_round) * 100);
 	if (isNaN(win_ratio)){
