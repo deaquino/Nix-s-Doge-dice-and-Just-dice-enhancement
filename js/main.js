@@ -60,6 +60,7 @@ var cpr;
 var site = 2;
 var ddt = "Doge-Dice.com";
 var jdt = "Just-Dice.com";
+var delay_bet = 1000;
 
 //window.location.reload(true);
 //-------------------------------------- Heart and possibly soul of the bot. Everything is called from here.
@@ -378,7 +379,7 @@ function bet_click(bet_value) {
 	var marti_limit = parseFloat($("#limiter").val());
 	var marti_reset_value = parseFloat($("#reset_value").val()); //value to reset to
 	var marti_reset_step = parseFloat($("#reset_step").val()); //step number to reset to
-	        
+	delay_bet = parseFloat($("#bot_delay_length").val());       
 
 	if (steps == (marti_reset_step - 1) && betting == 0 && running == 1 && $('#resetL_check').prop('checked')) {
 		if ($('#switch_loss_check').prop('checked')) {
@@ -386,13 +387,15 @@ function bet_click(bet_value) {
 				betting = 1;
 				marti_reset_value = scientific(marti_reset_value);
 				$("#pct_bet").val(marti_reset_value);
-				$("#a_hi").trigger('click');
+				
+				setTimeout(function(){ $("#a_hi").trigger('click') },delay_bet);
 
 			} else {
 				betting = 1;
 				marti_reset_value = scientific(marti_reset_value);
 				$("#pct_bet").val(marti_reset_value);
-				$("#a_lo").trigger('click');
+				
+				setTimeout(function(){ $("#a_lo").trigger('click') },delay_bet);
 			}
 		} else {
 
@@ -400,7 +403,7 @@ function bet_click(bet_value) {
 			marti_reset_value = scientific(marti_reset_value);
 			$("#pct_bet").val(marti_reset_value);
 
-			$("#a_hi").trigger('click');
+			setTimeout(function(){ $("#a_hi").trigger('click') },delay_bet);
 		}
 	} else if (steps < marti_limit && betting == 0 && running == 1) {
 		if ($('#switch_loss_check').prop('checked')) {
@@ -408,13 +411,13 @@ function bet_click(bet_value) {
 				betting = 1;
 				bet_value = scientific(bet_value);
 				$("#pct_bet").val(bet_value);
-				$("#a_hi").trigger('click');
+				setTimeout(function(){ $("#a_hi").trigger('click') },delay_bet);
 
 			} else {
 				betting = 1;
 				bet_value = scientific(bet_value);
 				$("#pct_bet").val(bet_value);
-				$("#a_lo").trigger('click');
+				setTimeout(function(){ $("#a_lo").trigger('click') },delay_bet);
 			}
 		} else {
 
@@ -422,7 +425,7 @@ function bet_click(bet_value) {
 			bet_value = scientific(bet_value);
 			$("#pct_bet").val(bet_value);
 
-			$("#a_hi").trigger('click');
+			setTimeout(function(){ $("#a_hi").trigger('click') },delay_bet);
 		}
 	} else if (randomizing == 1) {
 			console.log('Randomizing Please wait....');
@@ -443,7 +446,7 @@ function bust() {
 //-------------------------------------- Graphing functions
 function generate_graph() {
 	var res = [];
-	var gb= parseFloat($("#graph_length").val());
+	var gb = parseFloat($("#graph_length").val());
 	for (var i = 0; i < bet_data.length; ++i) {
 		if (res.length >= gb) {
 			while (res.length > gb){
@@ -537,6 +540,10 @@ function gui() { //
     //graph_length
     $graph_length = $('<div style="margin-left:10px;margin-right:10px"><font color="white"><input style="border:1px solid; border-color: #505050;" id="graph_length" value="200"/> max graph length  </font></div>')
         $o_row1.append($graph_length);
+
+    //bot_delay_length
+    $bot_delay_length = $('<div style="margin-left:10px;margin-right:10px"><font color="white"><input style="border:1px solid; border-color: #505050;" id="bot_delay_length" value="0"/> bot delay. 1000 = 1 second  </font></div>')
+        $o_row1.append($bot_delay_length);
 
 	//-------------------------------------- builds user interface
 	$container = $('<div id="chipper" class="container"/>');
