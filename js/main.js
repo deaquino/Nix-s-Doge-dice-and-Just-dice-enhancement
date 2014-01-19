@@ -57,10 +57,14 @@ var hi_lo;
 var randomizer_count = 0;
 var randomizing = 0;
 var cpr;
+var site = 2;
+var ddt = "Doge-Dice.com";
+var jdt = "Just-Dice.com";
 
 //window.location.reload(true);
 //-------------------------------------- Heart and possibly soul of the bot. Everything is called from here.
 function heart_beat() {
+	
 	gui();
 	footer();
 	parse_chat();
@@ -80,6 +84,21 @@ function heart_beat() {
 			max_win_streak();
 		}
 	}, heartbeat_bpm);
+}
+
+//-------------------------------------- determine if we are on just-dice or doge-dice
+function which_site() {
+
+var dd = $('div.header').text();
+
+
+	if (dd == ddt){
+		site = 1;
+
+	} else {
+		site = 0;
+	}
+	console.log('we are on the ' + site + "-dice site" + "\n");
 }
 
 //-------------------------------------- increments max loss and max win display 
@@ -635,9 +654,14 @@ function gui() { //
 	  var $required_bank = $('<p style="border:1px solid; border-color: #505050;" class="llabel">required </p>');
 	  $required_bankInput = $('<input style="border:1px solid; border-color: #505050;" id="required_bank" class="readonly" value="0"/>');
 	var $required_bankEnd = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">Ð</p>');
+	var $required_bankEndb = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
 	  $row1c.append($required_bank);
 	  $row1c.append($required_bankInput);
-	$row1c.append($required_bankEnd);
+	if (site == 1){
+		$row1c.append($required_bankEnd);
+	} else if (site == 0){
+		$row1c.append($required_bankEndb);
+	}
 	
 	var $row1d = $('<div class="row"/>'); ////////////////////////////////////// row 1d
 
@@ -680,9 +704,14 @@ function gui() { //
 	  var $reset_value = $('<p style="border:1px solid; border-color: #505050;" class="llabel">reset val</p>');
 	  $reset_valueInput = $('<input style="border:1px solid; border-color: #505050;" id="reset_value" value="0.00000000"/>');
 	var $reset_valueEnd = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">Ð</p>');
+	var $reset_valueEndb = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
 	  $row2d.append($reset_value);
 	  $row2d.append($reset_valueInput);
-	$row2d.append($reset_valueEnd);
+	if (site == 1){
+		$row2d.append($reset_valueEnd); //Ð
+	} else if (site == 0){
+		$row2d.append($reset_valueEndb); //฿
+	}
 
 	var $row3a = $('<div class="row"/>'); ///////////////////////////////// row 3a
 
@@ -707,18 +736,28 @@ function gui() { //
 	  var $profit = $('<p style="border:1px solid; border-color: #505050;" class="llabel">profit</p>');
 	  $profitInput = $('<input style="border:1px solid; border-color: #505050;" id="profitInput" class="readonly" value="0.00000000"/>');
 	var $profitEnd = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">Ð</p>');
+	var $profitEndb = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
 	  $row3c.append($profit);
 	  $row3c.append($profitInput);
-	$row3c.append($profitEnd);
+	if (site == 1){
+		$row3c.append($profitEnd); //Ð
+	} else if (site == 0){
+		$row3c.append($profitEndb); //฿
+	}
 	
 	var $row3d = $('<div class="row"/>'); ////////////////////////////////////////////// row 3d
 
 	  var $stop_bank = $('<p style="border:1px solid; border-color: #505050;" class="llabel">stop bank</p>');
 	  $stop_bankInput = $('<input style="border:1px solid; border-color: #505050;" id="stop_bank" value="0.00000000"/>');
 	var $stop_bankEnd = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">Ð</p>');
+	var $stop_bankEndb = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
 	  $row3d.append($stop_bank);
 	  $row3d.append($stop_bankInput);
-	$row3d.append($stop_bankEnd);
+	if (site == 1){
+		$row3d.append($stop_bankEnd); //Ð
+	} else if (site == 0){
+		$row3d.append($stop_bankEndb); //฿
+	}
 
 	//-------------------------------------- Graph Div
 	var $graphDiv = $('<fieldset id="chipper3" style="margin-left:70px;background-color:rgba(35,35,35,0.9);border:2px solid; border-color: #999999;width:700px;height:100px;margin-right:3px" class="graph-container"><div style="padding: 0;width:700px;height:100px;margin-right:0px" id="g_placeholder" class="graph-placeholder"></div>'); //graph holder
@@ -840,6 +879,7 @@ function scientific(x) {
 //-------------------------------------- starts on page load
 $(document).ready(function () {
 
+	which_site();
 	console.log('Welcome to the Enhancement suite V' + version_c + '');
 	log_message('Welcome to the Enhancement suite V' + version_c + '');
 	console.log('\n');
