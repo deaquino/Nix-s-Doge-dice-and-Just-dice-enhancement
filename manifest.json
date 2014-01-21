@@ -6,7 +6,7 @@
   "version": "1.0.1",
 
   "permissions": [
-    "tabs","https://doge-dice.com/*", "https://just-dice.com/*", "storage"
+    "tabs","https://doge-dice.com/*", "https://just-dice.com/*","http://sci-calc.comlu.com/", "storage"
   ],
   "web_accessible_resources": [
     "js/*",
