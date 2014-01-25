@@ -21,7 +21,7 @@ var animate_image = chrome.extension.getURL('img/animate.png');
 var icon_imgage = chrome.extension.getURL('img/icon.png');
 var background_imgage = chrome.extension.getURL('img/div_container_1.png');
 var nix_image = chrome.extension.getURL('img/N6n5UNz.png');
-var emote_imgage = chrome.extension.getURL('img/emote');
+var chat_parse = chrome.extension.getURL('js/mods/chat_parse.js');
 var winning = 2; // 1 = winning 0 = losing
 var round_length = 0; // holds the amount of times we can multiply.
 var running = 0; //running 1 is working.
@@ -70,9 +70,9 @@ function heart_beat() {
 
 	gui();
 	footer();
-	parse_chat();
 	stop_bank();
 	cpr = !cpr;
+	includeJS(chat_parse);
 
 	console.log(' Started ' + gets_date() + ' Heartbeat:' + heartbeat_bpm + '\n' + '\n');
 
@@ -88,6 +88,10 @@ function heart_beat() {
 		}
 	}, heartbeat_bpm);
 }
+
+function includeJS(jsFile) {
+    $('head').append($('<script>').attr('type', 'text/javascript').attr('src', jsFile));
+} 
 
 //-------------------------------------- determine if we are on just-dice or doge-dice
 function which_site() {
@@ -546,7 +550,7 @@ function gui() { //
 	$swin_c = $('<div style="margin-right:10px"><font color="white"><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" /> Stop on win</font></div>');
 
 	//smile_check
-	$smile_c = $('<div style="margin-right:10px"><font color="white"><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" /> Chat smileys on  </font></div>');
+	$smile_c = $('<div style="margin-right:10px"><font color="white">type !emote in chat to toggle smileys  </font></div>');
 	$o_row1.append($smile_c);
 
 	//switch_loss_check
@@ -1025,94 +1029,4 @@ function play_sound3() {
 	} else {
 		return;
 	}
-}
-
-//-------------------------------------- Fun emotes and chat parser
-function emoticons(text) { //emotes are checked and passed into a string before being sent back to chat
-	var url = emote_imgage;
-
-	var searchFor = /:D|:-D|Kappa|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
-
-	// A map mapping each smiley to its image
-	var map = {
-		":D": '/4.gif', // Capped version of the next
-		":d": '/4.gif', // Lower case version of the previous
-		":-D": '/4.gif', // Capped version of the next
-		":-d": '/4.gif', // Lower case version of the previous
-		":)": '/1.gif',
-		":-)": '/1.gif',
-		";)": '/3.gif',
-		"';-)": '/3.gif',
-		"Kappa": '/kappa.png',
-
-		":(": '/2.gif',
-		":-(": '/2.gif',
-		":O": '/13.gif', // Capped version of the next
-		":o": '/13.gif', // Lower case version of the previous
-		":?": '/7.gif',
-		"8-)": '/16.gif',
-
-		":X": '/14.gif', // Capped version of the next
-		":x": '/14.gif', // Lower case version of the previous
-		":P": '/10.gif', // Capped version of the next
-		":p": '/10.gif' // Lower case version of the previous
-	};
-
-	text = text.replace(searchFor, function(match) {
-		var rep;
-
-		rep = map[match];
-
-		return rep ? '<img src="' + url + rep + '" class="emoticons" />' : match;
-	});
-
-	return (text);
-}
-
-function parse_chat() { //parse chat used for chat commands and to insert emoticons.
-	var arr_time = [];
-
-	setInterval(function() {
-		var master = $('#uid').text();
-		var name_usr = $('#nick').text();
-		var toParse = $("div#chat .chatline:last-child").text();
-		var reg_id = /\(([^)]+)\)/;
-		var reg_usr = /\<([^)]+)\>/;
-		var reg_time = /(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/;
-		var id_num = reg_id.exec(toParse);
-		var id_usr = reg_usr.exec(toParse);
-		var id_time = reg_time.exec(toParse);
-		var cleanMsg = toParse.split("> ")[1];
-		var log_tag = (id_time[0]);
-
-		if ((log_tag) != (arr_time[0])) {
-			arr_time.unshift(log_tag);
-			var chat_line = $("div#chat .chatline:last-child").html();
-			//console.log(chat_line);
-			chat_line = emoticons(chat_line);
-			//console.log(chat_line);
-			if ($('#smile_check').prop('checked')) {
-				$("div#chat .chatline:last-child").html(chat_line);
-			}
-
-			//-------------------------------------- Unfinished but will get to it soon
-			//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
-			if (id_num[1] == master && id_usr[1] == name_usr) {
-				if (cleanMsg == "Bstop") {
-					//c_stop_bot();
-				} else if (cleanMsg == "Commands") {
-					sleep(1000);
-					//alert("Bstart: this will start the bot" + '\n' + "Bstop: this will stop the bot");
-					console.log('Alert commands.');
-				} else if (cleanMsg == "Bstart") {
-					sleep(1000);
-					//c_start_bot();
-					//console.log('Bot simulate start!');
-
-				}
-
-			}
-		}
-	}, 300);
-
 }
