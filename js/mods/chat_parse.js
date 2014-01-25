@@ -74,9 +74,9 @@ socket.on("chat", function (txt) { //reads chat lines using socket then uses sim
 	var id_usr = reg_usr.exec(txt)[1];
 	var cleanMsg = txt.split("> ")[1].toLowerCase();
 
-	console.log('userid: ' + userid)
-	console.log('id_usr: ' + id_usr)
-	console.log('cleanMsg: ' + cleanMsg + '\n')
+	//console.log('userid: ' + userid)
+	//console.log('id_usr: ' + id_usr)
+	//console.log('cleanMsg: ' + cleanMsg + '\n')
 
 	if (chat_on == 1) {	
 		chat_line = emoticons(cleanMsg);
