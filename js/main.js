@@ -928,22 +928,21 @@ function sleep(milliseconds) {
 }
 
 //-------------------------------------- scientific notation
-function scientific(x) {
-	if (Math.abs(x) < 1.0) {
-		var ea = parseInt(x.toString().split('ea-')[1]);
-		if (ea) {
-			x *= Math.pow(10, ea - 1);
-			x = '0.' + (new Array(ea)).join('0') + x.toString().substring(2);
-		}
-	} else {
-		var e = parseInt(x.toString().split('+')[1]);
-		if (e > 20) {
-			e -= 20;
-			x /= Math.pow(10, e);
-			x += (new Array(e + 1)).join('0');
-		}
-	}
-	return x;
+function scientific(n) {
+    n = String(n);
+    var info = /([\d\.]+)e-(\d+)/i.exec(n);
+    if (!info) {
+        return n;
+    }
+
+    var num = info[1].replace('.', ''), numDecs = info[2] - 1;
+    var output = "0.";
+    for (var i = 0; i < numDecs; i++) {
+        output += "0";
+    }
+    output += num;
+
+    return output;
 }
 
 //-------------------------------------- starts on page load
