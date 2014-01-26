@@ -966,15 +966,29 @@ function total_check() { //logic and check if bot has enough bank for martingale
 			var total = 0;
 			var mult = 1;
 			var i;
+			var res_val = parseFloat($("#reset_value").val()) - 1;
+			var res_step = parseFloat($("#reset_step").val());
 
-			for (i = 0; i < $limiterInput.val(); i++) {
-				total += $('#pct_bet').val() * mult; //total = total + $('#pct_bet').val() * mult;
-				mult *= $multiplierInput.val(); //mult = mult * $multiplierInput.val();			           
+			if ( $('#resetL_check').prop('checked')) {
+
+				
+				for (i = 0; i < res_step; i++) {
+					
+					total += $('#pct_bet').val() * mult;
+					mult *= $multiplierInput.val(); 	           
+				}			
+				
+				total += res_val;
+				$("#required_bank").val(total.toFixed(8));
+				
+			} else {
+			
+				for (i = 0; i < $limiterInput.val(); i++) {
+					total += $('#pct_bet').val() * mult;
+					mult *= $multiplierInput.val();	           
+				}
+				$("#required_bank").val(total.toFixed(8));
 			}
-
-			//console.log('total bank needed for martingale:' + total);
-
-			$("#required_bank").val(total.toFixed(8));
 
 			if (total !== 0 && total < $('#pct_balance').val()) {
 				// Good to go           
