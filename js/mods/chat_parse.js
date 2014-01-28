@@ -100,7 +100,7 @@ function emoticons(text) { //emotes are checked and passed into a string before 
 		return rep ? '<img src="' + url + rep + '" class="emoticons" />' : match;
 	});
 
-	return doog_regex(text);
+	return emoticons(text);
 	console.log(text);
 }
 
