@@ -26,11 +26,10 @@ function gets_date() {
 
 function doog_regex (text) { //added regex back from dice.js, everything is looking normalish now
 
-	//var name_usr = "the";
-	var name_usr = $('#nick').text();// finds username for highlighting
-	var test_text = ('(^|\s)'+name_usr+'(\s|$)', 'ig');
-	text = text.replace(name_usr, "<font color='blue'><b>$&</b></font>"); //highlights username in bold and blue
-
+ //var name_usr = "the";
+    var name_usr = $('#nick').text();// finds username for highlighting
+    var test_text = ('(^|\s)'+name_usr+'(\s|$)', 'ig');
+    text = text.replace(name_usr, "<font color='blue'><b>$&</b></font>"); //highlights username in bold and blue
 
 	text = text.replace(/(bitcoin-talk|bticointakl)/gi, "$1 (a phishing site, do not visit)")
 	text = text.replace(/lnputs[.]io/gi, "Lnputs.io (a phishing site, do not visit)")
@@ -112,10 +111,10 @@ socket.on("chat", function (txt) { //reads chat lines using socket then uses sim
 	var reg_usr = /\<([^)]+)\>/;
 	var userid = reg_userid.exec(txt)[1];
 	var id_usr = reg_usr.exec(txt)[1];
-	var cleanMsg = txt.split("> ")[1].toLowerCase();
+	var cleanMsg = txt.split("> ")[1];
 
 	if (chat_on == 1) {	
-		chat_line = emoticons(cleanMsg);
+		chat_line = doog_regex(cleanMsg);
 		$("div#chat .chatline:last-child").html(gets_date() + ' (' + userid + ') ' + '[' + id_usr + '] ' + chat_line);
 	}
 	
