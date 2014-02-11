@@ -89,9 +89,14 @@ socket.on("chat", function (txt) { //reads chat lines using socket then uses sim
 	var cleanMsg = txt.split("> ")[1];
 
 	if (chat_on == 1) {	
-		console.log(cleanMsg);
-		chat_line = doog_regex(txt);
-		$("div#chat .chatline:last-child").html(gets_date() + ' ' + chat_line);
+		//console.log(cleanMsg);
+        if ($('#mutechat').prop('checked')) {
+            chat_line = doog_regex('');
+        } else {
+            chat_line = doog_regex(txt);
+            //("div#chat .chatline:last-child").html(gets_date() + ' ' + chat_line);
+        }
+		
 	}
 	
 	if (userid == master && id_usr == name_usr) {
